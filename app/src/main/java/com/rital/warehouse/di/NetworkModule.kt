@@ -1,8 +1,6 @@
 package com.rital.warehouse.di
 
-import com.rital.warehouse.core.HTTP_URL_ENDPOINT
-import com.rital.warehouse.core.SUBSCRIPTION_KEY
-import com.rital.warehouse.core.SUBSCRIPTION_KEY_VALUE
+import com.rital.warehouse.core.Constants
 import com.rital.warehouse.data.remote.UserApi
 import com.rital.warehouse.data.remote.WarehouseApi
 import dagger.Module
@@ -36,7 +34,7 @@ object NetworkModule {
             .addInterceptor { chain ->
                 val request = chain.request()
                     .newBuilder()
-                    .addHeader(SUBSCRIPTION_KEY, SUBSCRIPTION_KEY_VALUE)
+                    .addHeader(Constants.SUBSCRIPTION_KEY, Constants.SUBSCRIPTION_KEY_VALUE)
                     .build()
                 chain.proceed(request)
             }.build()
@@ -45,7 +43,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(HTTP_URL_ENDPOINT)
+            .baseUrl(Constants.HTTP_URL_ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

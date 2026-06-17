@@ -2,6 +2,7 @@ package com.rital.warehouse.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rital.warehouse.core.Constants
 import com.rital.warehouse.core.ResultState
 import com.rital.warehouse.domain.usecase.SearchProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,7 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState = _uiState.asStateFlow()
-    private val searchQuery = MutableStateFlow("")
+    private val searchQuery = MutableStateFlow(Constants.EMPTY_STRING)
 
     init {
         viewModelScope.launch {

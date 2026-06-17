@@ -1,6 +1,6 @@
 package com.rital.warehouse.data.repository
 
-import android.util.Log
+import com.rital.warehouse.core.Constants
 import com.rital.warehouse.data.local.UserPreferences
 import com.rital.warehouse.data.remote.UserApi
 import com.rital.warehouse.domain.repository.UserRepository
@@ -13,7 +13,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun fetchAndStoreUser() {
         val response = userApi.getUser()
-        userPreferences.saveUserId(response.UserID ?: "")
+        userPreferences.saveUserId(response.UserID ?: Constants.EMPTY_STRING)
     }
 
     override suspend fun getUserId(): String {

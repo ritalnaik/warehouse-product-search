@@ -29,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.rital.warehouse.core.Constants
+import com.rital.warehouse.core.theme.Dimens
 import com.rital.warehouse.data.model.search.ProductWithoutPrice
 
 @Composable
@@ -37,11 +39,11 @@ fun SearchScreen(
     onQueryChanged: (String) -> Unit,
     onProductClick: (String) -> Unit
 ) {
-    var query by remember { mutableStateOf("") }
+    var query by remember { mutableStateOf(Constants.EMPTY_STRING) }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(Dimens.Medium)
     ) {
         Text(
             modifier = Modifier.clickable(onClick =
@@ -51,7 +53,7 @@ fun SearchScreen(
             style = MaterialTheme.typography.headlineMedium
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
 
         Text(
             text = "Search products instantly",
@@ -73,7 +75,7 @@ fun SearchScreen(
             },
             singleLine = true
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimens.Medium))
         SearchContent(uiState)
     }
 }
@@ -111,10 +113,10 @@ private fun SearchContent(
             val products = uiState.products
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(Dimens.Medium),
                 modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(Dimens.Small),
+                verticalArrangement = Arrangement.spacedBy(Dimens.Small)
             ) {
                 items(
                     count = products?.size ?: 0,
@@ -140,17 +142,17 @@ fun ProductItem(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(Dimens.ImageHeight)
             )
             Column(
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(Dimens.SmallMedium)
             ) {
                 Text(
-                    text = product.Description ?: "",
+                    text = product.Description ?: Constants.EMPTY_STRING,
                     maxLines = 2
                 )
                 Spacer(
-                    modifier = Modifier.height(4.dp)
+                    modifier = Modifier.height(Dimens.ExtraSmall)
                 )
                 Text(
                     text = "Code: ${product.ProductKey}"

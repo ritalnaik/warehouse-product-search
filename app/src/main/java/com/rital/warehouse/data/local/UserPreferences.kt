@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.rital.warehouse.core.Constants
 
 class UserPreferences @Inject constructor(
     private val dataStore: DataStore<Preferences>
@@ -21,6 +22,6 @@ class UserPreferences @Inject constructor(
     }
 
     suspend fun getUserId(): String {
-        return dataStore.data.first()[USER_ID]?:""
+        return dataStore.data.first()[USER_ID]?:Constants.EMPTY_STRING
     }
 }

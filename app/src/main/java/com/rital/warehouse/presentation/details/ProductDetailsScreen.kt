@@ -29,8 +29,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
+import com.rital.warehouse.core.Constants
+import com.rital.warehouse.core.theme.Dimens
 
 @Composable
 fun ProductDetailScreen(
@@ -47,13 +48,13 @@ fun ProductDetailScreen(
             .background(
                 Color(0xFFB3B3B3)
             )
-            .padding(16.dp),
+            .padding(Dimens.Medium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SubcomposeAsyncImage(
             model = productUiState.product?.product?.ImageURL,
             contentDescription = "Product Image",
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.size(Dimens.ImageHeight),
             contentScale = ContentScale.Fit,
             loading = {
                 Box(
@@ -73,10 +74,10 @@ fun ProductDetailScreen(
             },
             )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(Dimens.Medium))
 
         Text(
-            text = productUiState.product?.product?.Description?:"",
+            text = productUiState.product?.product?.Description?:Constants.EMPTY_STRING,
             fontSize = 20.sp,
             color = Color.Black,
             maxLines = 2,
@@ -84,12 +85,12 @@ fun ProductDetailScreen(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(Dimens.Medium))
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = productUiState.product?.product?.Price?.price ?: "",
+                text = productUiState.product?.product?.Price?.price ?: Constants.EMPTY_STRING,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
@@ -107,11 +108,10 @@ fun ProductDetailScreen(
 //            }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-
+        Spacer(modifier = Modifier.height(Dimens.Medium))
         HorizontalDivider(thickness = 0.5.dp, color = Color.Gray)
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(Dimens.Medium))
 
         Text(
             text = "Barcode",
@@ -121,10 +121,10 @@ fun ProductDetailScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
 
         Text(
-            text = productUiState.product?.product?.Barcode?:"",
+            text = productUiState.product?.product?.Barcode?:Constants.EMPTY_STRING,
             fontSize = 14.sp,
             color = Color.DarkGray,
             modifier = Modifier.fillMaxWidth()

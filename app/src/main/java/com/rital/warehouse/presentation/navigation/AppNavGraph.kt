@@ -9,7 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.rital.warehouse.core.BARCODE_KEY
+import com.rital.warehouse.core.Constants
 import com.rital.warehouse.presentation.details.ProductDetailScreen
 import com.rital.warehouse.presentation.details.ProductDetailsViewModel
 import com.rital.warehouse.presentation.search.SearchScreen
@@ -39,12 +39,12 @@ fun AppNavGraph(
         composable(
             route = AppRoutes.ProductDetails.route,
             arguments = listOf(
-                navArgument(BARCODE_KEY) {
+                navArgument(Constants.BARCODE_KEY) {
                     type = NavType.StringType
                 }
             )
         ) {
-            val barcode = it.arguments?.getString(BARCODE_KEY) ?: ""
+            val barcode = it.arguments?.getString(Constants.BARCODE_KEY) ?: Constants.EMPTY_STRING
             val viewModel: ProductDetailsViewModel = hiltViewModel()
             ProductDetailScreen(
                 barcode = barcode,
