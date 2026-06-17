@@ -1,4 +1,14 @@
 package com.rital.warehouse.domain.usecase
 
-class SearchProductsUseCase {
+import com.rital.warehouse.core.ResultState
+import com.rital.warehouse.data.model.search.ProductWithoutPrice
+import com.rital.warehouse.domain.repository.ProductRepository
+import javax.inject.Inject
+
+class SearchProductsUseCase @Inject constructor(
+    private val productRepository: ProductRepository
+) {
+    suspend operator fun invoke(query: String): ResultState<List<ProductWithoutPrice?>?> {
+        return productRepository.searchProducts(query)
+    }
 }
