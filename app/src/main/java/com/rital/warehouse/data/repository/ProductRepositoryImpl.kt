@@ -16,24 +16,11 @@ class ProductRepositoryImpl @Inject constructor(
     private val networkManager: NetworkManager,
     private val userRepository: UserRepository
 ): ProductRepository {
-    private val productList = mutableListOf<ProductWithoutPrice?>()
-    override suspend fun searchProducts(query: String): ResultState<List<ProductWithoutPrice?>> {
+    override suspend fun searchProducts(query: String): ResultState<List<ProductDetail>> {
         return try {
             if (networkManager.isConnected()) {
                 val response = warehouseApi.getSearchResult(searchTerm = query, userID = userRepository.getUserId())
-
-                if(response.Found.equals("Y")){
-                   val totalItemNum = response.HitCount
-                   val size = response.Results?.size?:0
-                   for (i in 0..size) {
-                       val item = response.Results?.get(i)
-                       item?.Products?.let {
-                           productList.addAll(it)
-                       }
-                   }
-                   ResultState.Success(productList)
-                }
-                else ResultState.Error("Search failed!")
+                ResultState.Success(response.products)
             } else  ResultState.Error("No internet connection")
 
         } catch (e: Exception) {

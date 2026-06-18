@@ -52,7 +52,7 @@ fun ProductDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SubcomposeAsyncImage(
-            model = productUiState.product?.product?.ImageURL,
+            model = productUiState.product?.productImageUrl,
             contentDescription = "Product Image",
             modifier = Modifier.size(Dimens.ImageHeight),
             contentScale = ContentScale.Fit,
@@ -77,7 +77,7 @@ fun ProductDetailScreen(
         Spacer(modifier = Modifier.height(Dimens.Medium))
 
         Text(
-            text = productUiState.product?.product?.Description?:Constants.EMPTY_STRING,
+            text = productUiState.product?.productName?:Constants.EMPTY_STRING,
             fontSize = 20.sp,
             color = Color.Black,
             maxLines = 2,
@@ -90,7 +90,7 @@ fun ProductDetailScreen(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = productUiState.product?.product?.Price?.price ?: Constants.EMPTY_STRING,
+                text = "${productUiState.product?.priceInfo?.price?:0.0}",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
@@ -124,7 +124,7 @@ fun ProductDetailScreen(
         Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
 
         Text(
-            text = productUiState.product?.product?.Barcode?:Constants.EMPTY_STRING,
+            text = productUiState.product?.productDescription?:Constants.EMPTY_STRING,
             fontSize = 14.sp,
             color = Color.DarkGray,
             modifier = Modifier.fillMaxWidth()

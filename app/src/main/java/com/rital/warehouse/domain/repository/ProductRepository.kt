@@ -8,7 +8,7 @@ import com.rital.warehouse.data.model.search.SearchResult
 interface ProductRepository {
     suspend fun searchProducts(
         query: String
-    ): ResultState<List<ProductWithoutPrice?>?>
+    ): ResultState<List<ProductDetail>?>
 
     suspend fun getProductDetails(
         barcode: String

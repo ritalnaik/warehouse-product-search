@@ -27,9 +27,9 @@ class SearchViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             searchQuery
-                .debounce(500)
+                .debounce(500) // Wait for 300ms of inactivity before processing the query
                 .distinctUntilChanged()
-                .filter { it.isNotBlank() }
+                .filter { it.trim().length >= 3 }
                 .collectLatest { query ->
                     searchProducts(query)
                 }

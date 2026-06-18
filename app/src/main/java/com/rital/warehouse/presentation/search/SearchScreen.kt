@@ -31,7 +31,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.rital.warehouse.core.Constants
 import com.rital.warehouse.core.theme.Dimens
+import com.rital.warehouse.data.model.product.ProductDetail
 import com.rital.warehouse.data.model.search.ProductWithoutPrice
+import com.rital.warehouse.presentation.navigation.AppRoutes
 
 @Composable
 fun SearchScreen(
@@ -46,9 +48,6 @@ fun SearchScreen(
             .padding(Dimens.Medium)
     ) {
         Text(
-            modifier = Modifier.clickable(onClick =
-                { onProductClick("BARCODETEST") }
-            ),
             text = "Warehouse Search",
             style = MaterialTheme.typography.headlineMedium
         )
@@ -76,13 +75,14 @@ fun SearchScreen(
             singleLine = true
         )
         Spacer(modifier = Modifier.height(Dimens.Medium))
-        SearchContent(uiState)
+        SearchContent(uiState,onProductClick)
     }
 }
 
 @Composable
 private fun SearchContent(
-    uiState: SearchUiState
+    uiState: SearchUiState,
+    onProductClick: (String) -> Unit = {}
 ) {
     when {
         uiState.isLoading -> {
@@ -131,14 +131,17 @@ private fun SearchContent(
 
 @Composable
 fun ProductItem(
-    product: ProductWithoutPrice
+    product: ProductDetail,
+    onProductClick: (String) -> Unit = {}
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { onProductClick(product.productId)
+        }
     ) {
         Column {
             AsyncImage(
-                model = product.ImageURL,
+                model = product.productImageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -148,14 +151,14 @@ fun ProductItem(
                 modifier = Modifier.padding(Dimens.SmallMedium)
             ) {
                 Text(
-                    text = product.Description ?: Constants.EMPTY_STRING,
+                    text = product.productDescription ?: Constants.EMPTY_STRING,
                     maxLines = 2
                 )
                 Spacer(
                     modifier = Modifier.height(Dimens.ExtraSmall)
                 )
                 Text(
-                    text = "Code: ${product.ProductKey}"
+                    text = "Code: ${product.productName}"
                 )
             }
         }

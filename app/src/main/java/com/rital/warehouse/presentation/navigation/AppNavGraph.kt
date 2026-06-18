@@ -29,9 +29,8 @@ fun AppNavGraph(
             SearchScreen(
                 uiState = uiState,
                 onQueryChanged = viewModel::onQueryChanged,
-                //below mentioned onclick listener is for testing purpose
-                onProductClick = { barcode->
-                    navController.navigate(AppRoutes.ProductDetails.createRoute(barcode))
+                onProductClick = { productId->
+                    navController.navigate(AppRoutes.ProductDetails.createRoute(productId))
                 }
             )
         }
