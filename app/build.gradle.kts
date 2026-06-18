@@ -21,6 +21,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://legacy-apim.twg.co.nz/\""
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -35,6 +42,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     kotlinOptions {
         jvmTarget = "11"

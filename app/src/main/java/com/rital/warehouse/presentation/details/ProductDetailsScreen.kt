@@ -1,6 +1,7 @@
 package com.rital.warehouse.presentation.details
 
 import android.R
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,6 +41,7 @@ fun ProductDetailScreen(
 ) {
     val productUiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(barcode) {
+        Log.e("ProductDetails","barcode : $barcode")
         viewModel.getProductDetails(barcode)
     }
     Column(
@@ -52,7 +54,7 @@ fun ProductDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SubcomposeAsyncImage(
-            model = productUiState.product?.productImageUrl,
+            model = productUiState.product?.imageUrls?.first(),
             contentDescription = "Product Image",
             modifier = Modifier.size(Dimens.ImageHeight),
             contentScale = ContentScale.Fit,
@@ -110,11 +112,10 @@ fun ProductDetailScreen(
 
         Spacer(modifier = Modifier.height(Dimens.Medium))
         HorizontalDivider(thickness = 0.5.dp, color = Color.Gray)
-
         Spacer(modifier = Modifier.height(Dimens.Medium))
 
         Text(
-            text = "Barcode",
+            text = productUiState.product?.promotions?.first()?.dealDescription?:"",
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             color = Color.Black,
@@ -124,7 +125,7 @@ fun ProductDetailScreen(
         Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
 
         Text(
-            text = productUiState.product?.productDescription?:Constants.EMPTY_STRING,
+            text = productUiState.product?.brandDescription?:Constants.EMPTY_STRING,
             fontSize = 14.sp,
             color = Color.DarkGray,
             modifier = Modifier.fillMaxWidth()

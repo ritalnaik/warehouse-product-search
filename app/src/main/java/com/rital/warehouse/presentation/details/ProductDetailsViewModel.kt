@@ -19,20 +19,20 @@ class ProductDetailsViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
 
-    fun getProductDetails(barcode: String) {
-        if (barcode.isBlank()) {
+    fun getProductDetails(productId: String) {
+        if (productId.isBlank()) {
             _uiState.value = ProductUiState()
             return
         }
 
         viewModelScope.launch {
-            when (val result = getProductDetailUseCase(barcode)) {
+            when (val result = getProductDetailUseCase(productId)) {
                 is ResultState.Success -> {
                     val product = result.data
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            product = product,
+                            product = product.product,
                             error = null
                         )
                     }

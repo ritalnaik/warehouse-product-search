@@ -1,10 +1,8 @@
 package com.rital.warehouse.data.repository
 
-import android.util.Log
 import com.rital.warehouse.core.ResultState
-import com.rital.warehouse.data.model.product.ProductDetail
-import com.rital.warehouse.data.model.search.ProductWithoutPrice
-import com.rital.warehouse.data.model.search.SearchResult
+import com.rital.warehouse.data.model.product.Product
+import com.rital.warehouse.data.model.product.SearchResults
 import com.rital.warehouse.data.network.NetworkManager
 import com.rital.warehouse.data.remote.WarehouseApi
 import com.rital.warehouse.domain.repository.ProductRepository
@@ -16,7 +14,7 @@ class ProductRepositoryImpl @Inject constructor(
     private val networkManager: NetworkManager,
     private val userRepository: UserRepository
 ): ProductRepository {
-    override suspend fun searchProducts(query: String): ResultState<List<ProductDetail>> {
+    override suspend fun searchProducts(query: String): ResultState<List<SearchResults>> {
         return try {
             if (networkManager.isConnected()) {
                 val response = warehouseApi.getSearchResult(searchTerm = query, userID = userRepository.getUserId())
@@ -28,7 +26,7 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getProductDetails(barcode: String): ResultState<ProductDetail> {
+    override suspend fun getProductDetails(barcode: String): ResultState<Product> {
         return try {
             val response = warehouseApi.getProductDetails(barcode)
             ResultState.Success(response)

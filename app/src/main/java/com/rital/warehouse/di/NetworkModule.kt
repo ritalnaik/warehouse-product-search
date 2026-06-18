@@ -1,5 +1,6 @@
 package com.rital.warehouse.di
 
+import com.rital.warehouse.BuildConfig
 import com.rital.warehouse.core.Constants
 import com.rital.warehouse.data.remote.UserApi
 import com.rital.warehouse.data.remote.WarehouseApi
@@ -43,7 +44,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.HTTP_URL_ENDPOINT)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

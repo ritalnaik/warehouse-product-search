@@ -1,11 +1,10 @@
 package com.rital.warehouse.data.model.product
 
-import com.google.gson.JsonArray
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.builtins.serializer
 
-
-data class ProductDetail (
+data class SearchResultsList (
+    val products: List<SearchResults>
+)
+data class SearchResults (
     val productName: String,
     val productKey: Long,
     val priceInfo: PriceInfo,
@@ -80,6 +79,4 @@ data class Promotion (
 )
 
 
-data class ProductDetailsList (
-    val products: List<ProductDetail>
-)
+
